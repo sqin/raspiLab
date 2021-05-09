@@ -3,6 +3,8 @@
 #include "ultrasonic_ranging.h"
 
 
+#define LCD_TEST 1
+
 int main(){
     if(wiringPiSetup() == -1){
         printf("setup wiringPi failed");
@@ -14,6 +16,10 @@ int main(){
 
 #ifdef RANGING_TEST
     test_ranging_main();
+#endif
+
+#ifdef LCD_TEST
+    test_lcd_main();
 #endif
     return 0;
 }
