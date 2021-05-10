@@ -98,7 +98,7 @@ void test_lcd_main(){
     makerobo_init();
     while (1)
     {
-        makerobo_write(0,0,"linlin2");
+        makerobo_write(0,0,"HELLO linlin");
         makerobo_write(0,1,"HELLO huahua");
         delay(2000);
         makerobo_clear();
@@ -106,5 +106,14 @@ void test_lcd_main(){
 
     }
     return 0;
-    
+}
+
+void lcd_show_temp(float temp){
+    char str_temp[16];
+    makerobo_fd = wiringPiI2CSetup(makerobo_LCDAddr);
+    makerobo_init();
+    sprintf(str_temp,"%.3f",temp);
+    makerobo_write(0, 0, str_temp);
+    delay(2000);
+    // makerobo_clear();
 }

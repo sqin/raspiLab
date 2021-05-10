@@ -15,7 +15,7 @@ INCDIR =-I. \
 
 DYN_LINKS_WITH += -L$(APIROOT)/libs/ -lwiringPi
 
-CFLAGS+= -Wall -fPIC
+CFLAGS+= -Wall -fPIC -g
 
 # c++文件后缀
 CCSUFIX= cpp
