@@ -21,7 +21,7 @@ void test_temperature_main(){
             /* code */
             if((dirent->d_type == DT_LNK && strstr(dirent->d_name,"28-") != NULL)){
                 strcpy(dev,dirent->d_name);
-                printf("Device:%s\n",dev);
+                //printf("Device:%s\n",dev);
             }
             
         }
@@ -31,7 +31,7 @@ void test_temperature_main(){
         return ;
     }
     sprintf(devPath,"%s/%s/w1_slave",path,dev);
-    printf("devPath:%s\n",devPath);
+    //printf("devPath:%s\n",devPath);
     while (1)
     {
         int fd = open(devPath,O_RDONLY);
@@ -71,7 +71,7 @@ float getTemp()
             if ((dirent->d_type == DT_LNK && strstr(dirent->d_name, "28-") != NULL))
             {
                 strcpy(dev, dirent->d_name);
-                printf("Device:%s\n", dev);
+               // printf("Device:%s\n", dev);
             }
         }
         closedir(dir);
@@ -82,7 +82,7 @@ float getTemp()
         return;
     }
     sprintf(devPath, "%s/%s/w1_slave", path, dev);
-    printf("devPath:%s\n", devPath);
+    //printf("devPath:%s\n", devPath);
     {
         int fd = open(devPath, O_RDONLY);
         if (fd == -1)
@@ -94,8 +94,9 @@ float getTemp()
         {
             strncpy(tmpData, strstr(buf, "t=") + 2, 5);
             float tempC = strtof(tmpData, NULL);
-            printf("Device:%s -", dev);
+            //printf("Device:%s -", dev);
             printf("Temp:%.3f C \n", tempC / 1000);
+	    fflush(stdout);
             result = tempC/1000;
         }
         close(fd);

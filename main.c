@@ -25,6 +25,7 @@ int main(){
 #endif
 
 #ifdef TEMP_TEST
+    lcd_show_temp_init();
 while(1){
     float temp = getTemp();
     // test_temperature_main();

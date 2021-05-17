@@ -3,6 +3,7 @@
 
 void test_lcd_main();
 void lcd_show_temp(float temp);
+void lcd_show_temp_init();
 
 #endif // LCD1602_H_ 
 

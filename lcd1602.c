@@ -83,7 +83,6 @@ void makerobo_write(int lcd_x,int lcd_y,char data[]){
     lcd_addr = 0x80 + 0x40 * lcd_y + lcd_x;
     makerobo_send_command(lcd_addr);
     lcd_tmp = strlen(data);
-    printf("line:%d,len is:%d\n",__LINE__,lcd_tmp);
 
     for( lcd_i=0; lcd_i < lcd_tmp;lcd_i++){
         makerobo_send_data(data[lcd_i]);
@@ -91,9 +90,7 @@ void makerobo_write(int lcd_x,int lcd_y,char data[]){
 }
 
 void test_lcd_main(){
-    printf("line:%d\n",__LINE__);
     makerobo_fd = wiringPiI2CSetup(makerobo_LCDAddr);
-    printf("line:%d\n",__LINE__);
 
     makerobo_init();
     while (1)
@@ -102,18 +99,19 @@ void test_lcd_main(){
         makerobo_write(0,1,"HELLO huahua");
         delay(2000);
         makerobo_clear();
-        printf("line:%d\n",__LINE__);
 
     }
     return 0;
 }
 
-void lcd_show_temp(float temp){
-    char str_temp[16];
+void lcd_show_temp_init(){
     makerobo_fd = wiringPiI2CSetup(makerobo_LCDAddr);
     makerobo_init();
+}
+
+void lcd_show_temp(float temp){
+    char str_temp[16];
     sprintf(str_temp,"%.3f",temp);
     makerobo_write(0, 0, str_temp);
-    delay(2000);
-    // makerobo_clear();
+    delay(500);
 }
