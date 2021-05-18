@@ -4,6 +4,7 @@
 #include<fcntl.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include<time.h>
 
 void test_temperature_main(){
     DIR *dir;
@@ -51,6 +52,17 @@ void test_temperature_main(){
     return 0;
 }
 
+char* getDateTime()
+{
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&rawtime);
+	ltime = localtime(&rawtime);
+	strftime(nowtime, 20, "%Y-%m-%d %H:%M:%S", ltime);
+	return nowtime;
+}
+
 float getTemp()
 {
     DIR *dir;
@@ -95,8 +107,9 @@ float getTemp()
             strncpy(tmpData, strstr(buf, "t=") + 2, 5);
             float tempC = strtof(tmpData, NULL);
             //printf("Device:%s -", dev);
-            printf("Temp:%.3f C \n", tempC / 1000);
-	    fflush(stdout);
+            char* nowtime = getDateTime();
+            printf("%s Temp:%.3f\n", nowtime,tempC / 1000);
+	        fflush(stdout);
             result = tempC/1000;
         }
         close(fd);
